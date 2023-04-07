@@ -1,24 +1,31 @@
-import logo from './logo.svg';
 import './App.css';
 
+import Container from 'react-bootstrap/Container';
+
+import { DoubleNavbar } from './Components/Navbar';
+import { CardsCarousel } from './Components/Card';
+import { TableSort } from './Components/TableSort';
+
+import styles from './Style_Modules/Main.modules.css';
+
 function App() {
+
+  const data = [
+    { name: 'John Doe', email: 'john.doe@example.com', company: 'ABC Corp' },
+    { name: 'Jane Smith', email: 'jane.smith@example.com', company: 'XYZ Inc' },
+    { name: 'Bob Johnson', email: 'bob.johnson@example.com', company: 'DEF Co' },
+    { name: 'Alice Brown', email: 'alice.brown@example.com', company: 'GHI Ltd' },
+    { name: 'Charlie Davis', email: 'charlie.davis@example.com', company: 'JKL LLC' },
+  ];
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+
+      <DoubleNavbar className={styles.margin}>
+      </DoubleNavbar>
+          <CardsCarousel />
+          <TableSort data={data} />
+    </Container>
   );
 }
 
