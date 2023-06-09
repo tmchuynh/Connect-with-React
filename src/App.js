@@ -23,8 +23,8 @@ function App() {
 
       <DoubleNavbar className={styles.margin}>
       </DoubleNavbar>
-          <CardsCarousel />
-          <TableSort data={data} />
+      <CardsCarousel />
+      <TableSort data={data} />
     </Container>
   );
 }
