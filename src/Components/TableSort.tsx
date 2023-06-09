@@ -12,6 +12,7 @@ import {
 } from '@mantine/core';
 import { keys } from '@mantine/utils';
 import { IconSelector, IconChevronDown, IconChevronUp, IconSearch } from '@tabler/icons-react';
+import React from 'react';
 
 const useStyles = createStyles((theme) => ({
     table: {
@@ -41,10 +42,6 @@ interface RowData {
     name: string;
     email: string;
     company: string;
-}
-
-interface TableSortProps {
-    data: RowData[];
 }
 
 interface ThProps {
@@ -81,20 +78,20 @@ function filterData(data: RowData[], search: string) {
 }
 
 function sortData(
-    data,
-    { sortBy, reversed, search }
+    data: any[],
+    { sortBy, reversed, search }: { sortBy: any; reversed: boolean; search: any; }
   ) {
     const query = search.toLowerCase().trim();
   
     if (!sortBy) {
-      return data.filter((item) =>
+      return data.filter((item: { [x: string]: { toString: () => string; }; }) =>
         Object.keys(item).some((key) => item[key].toString().toLowerCase().includes(query))
       );
     }
   
     return data
       .slice()
-      .sort((a, b) => {
+      .sort((a: { [x: string]: any; }, b: { [x: string]: any; }) => {
         const aVal = a[sortBy];
         const bVal = b[sortBy];
   
@@ -112,7 +109,7 @@ function sortData(
           return 0;
         }
       })
-      .filter((item) =>
+      .filter((item: { [x: string]: { toString: () => string; }; }) =>
         Object.keys(item).some((key) => item[key].toString().toLowerCase().includes(query))
       );
   }
@@ -126,20 +123,20 @@ export function TableSort({ data }) {
     const [sortBy, setSortBy] = useState(null);
     const [reverseSortDirection, setReverseSortDirection] = useState(false);
   
-    const setSorting = (field) => {
+    const setSorting = (field: string | React.SetStateAction<null>) => {
       const reversed = field === sortBy ? !reverseSortDirection : false;
       setReverseSortDirection(reversed);
       setSortBy(field);
       setSortedData(sortData(data, { sortBy: field, reversed, search }));
     };
   
-    const handleSearchChange = (event) => {
+    const handleSearchChange = (event: { currentTarget: { value: any; }; }) => {
       const { value } = event.currentTarget;
       setSearch(value);
       setSortedData(sortData(data, { sortBy, reversed: reverseSortDirection, search: value }));
     };
   
-    const rows = sortedData.map((row) => (
+    const rows = sortedData.map((row: { name: boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.Key | null | undefined; email: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | null | undefined; company: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | null | undefined; }) => (
       <tr key={row.name}>
         <td>{row.name}</td>
         <td>{row.email}</td>
